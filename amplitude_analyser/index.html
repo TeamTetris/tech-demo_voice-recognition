@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Microphone Demo</title>
+	
+    <link href="styles/app.css" rel="stylesheet" type="text/css">
+	
+</head>
+<body>
+  <div class="wrapper">
+    
+    <header>
+      <h1>Microphone Demo</h1>
+    </header>
+
+    <canvas class="visualizer" width="640" height="200"></canvas> 
+
+    <div class="output">--</div>
+
+    <form class="controls">
+      <div>
+        <label for="visual">Visualizer setting</label>
+        <select id="visual" name="visual">
+          <option value="sinewave">Sinewave</option>
+          <option value="frequencybars">Frequency bars</option>
+          <option value="amplitude" selected>Amplitude</option>
+          <option value="off">Off</option>
+        </select>
+      </div>
+    </form>
+
+
+  </div>
+
+    <script src="scripts/queue.js"></script>
+    <script src="scripts/app.js"></script>
+	
+</body>
+</html>
