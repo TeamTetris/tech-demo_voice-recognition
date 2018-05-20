@@ -173,6 +173,9 @@ function visualize() {
 
     canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
 
+    var MAX_QUEUE_SIZE = 100;
+    var MIN_DECIBELS = 42; // This is the empirically determined minimum decibel value for Uint samples (-42.3 = 20 * Log10(1/128))
+
     var draw = function() {
 
       drawVisual = requestAnimationFrame(draw);
@@ -185,7 +188,7 @@ function visualize() {
         return decibels;
       }
 
-      var maxDecibels = -99;
+      var maxDecibels = Number.NEGATIVE_INFINITY;
       for (var i = 0; i < dataArray.length; i++) {
         var decibels = calculateDecibels(dataArray[i])
         if (decibels > maxDecibels) {
@@ -195,7 +198,7 @@ function visualize() {
       outputDiv.innerHTML = Math.round(maxDecibels, 2) + " dB";
 
       maxDecibelsQueue.add(maxDecibels);
-      if (maxDecibelsQueue.size() > 100) {
+      if (maxDecibelsQueue.size() > MAX_QUEUE_SIZE) {
         maxDecibelsQueue.remove();
       } else {
         return;
@@ -207,7 +210,8 @@ function visualize() {
 
       for(var i = 0; i < maxDecibelsQueue.size(); i++) {
 
-        var v = (Math.abs(maxDecibelsQueue.data[i])) / 42.0;
+        // flip x values by subtracting the index from the MAX_QUEUE_SIZE
+        var v = (Math.abs(maxDecibelsQueue.data[MAX_QUEUE_SIZE - i])) / MIN_DECIBELS;
         var y = v * HEIGHT;
 
         if(i === 0) {
