@@ -174,7 +174,6 @@ function visualize() {
     canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
 
     var draw = function() {
-      canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
 
       drawVisual = requestAnimationFrame(draw);
 
@@ -201,13 +200,14 @@ function visualize() {
       } else {
         return;
       }
-
+      canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);      
+      canvasCtx.beginPath();
       var sliceWidth = WIDTH * 1.0 / maxDecibelsQueue.size();
       var x = 0;
 
       for(var i = 0; i < maxDecibelsQueue.size(); i++) {
 
-        var v = (maxDecibelsQueue.data[i] + 43) / 43.0;
+        var v = (Math.abs(maxDecibelsQueue.data[i])) / 42.0;
         var y = v * HEIGHT;
 
         if(i === 0) {
@@ -221,6 +221,7 @@ function visualize() {
 
       canvasCtx.lineTo(canvas.width, canvas.height);
       canvasCtx.stroke();
+      canvasCtx.closePath();      
     };
 
     draw();
