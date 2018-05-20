@@ -205,14 +205,15 @@ function visualize() {
       }
       canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);      
       canvasCtx.beginPath();
+      canvasCtx.lineWidth = 4;
       var sliceWidth = WIDTH * 1.0 / maxDecibelsQueue.size();
       var x = 0;
 
       for(var i = 0; i < maxDecibelsQueue.size(); i++) {
 
         // flip x values by subtracting the index from the MAX_QUEUE_SIZE
-        var v = (Math.abs(maxDecibelsQueue.data[MAX_QUEUE_SIZE - i])) / MIN_DECIBELS;
-        var y = v * HEIGHT;
+        var v = 0.8 * (Math.abs(maxDecibelsQueue.data[MAX_QUEUE_SIZE - i])) / MIN_DECIBELS;
+        var y = (v + 0.15) * HEIGHT;
 
         if(i === 0) {
           canvasCtx.moveTo(x, y);
